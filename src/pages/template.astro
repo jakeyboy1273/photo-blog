@@ -3,7 +3,6 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -14,15 +13,7 @@ const base = import.meta.env.BASE_URL;
 	<body>
 		<Header />
 		<main>
-			<h1 class="text-4xl font-bold">
-				My Photography Blog!
-			</h1>
-			<p>
-				This page is a work in progress. So far it has a lot of information about the web design framework I am using
-				to build it, and not a lot of information about photos. Here is an <a href={`${base}/blog/third-post/`}>Elephant</a>
-				🐘 to keep you company while you wait!
-			</p>
-			<p>-</p>
+			<h1>🧑‍🚀 Hello, Astronaut!</h1>
 			<p>
 				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
 				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
