@@ -9,13 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^5.0.2",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
     "astro": "^6.0.6",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "typescript": "^5.9.3"
   }
 }
