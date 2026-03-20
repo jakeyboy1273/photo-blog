@@ -1,15 +1,16 @@
 ---
-import { REPO_NAME, SITE_TITLE } from '../consts';
+import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href={base + "/"}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-            <HeaderLink href={`${REPO_NAME}/`}>Home</HeaderLink>
-            <HeaderLink href={`${REPO_NAME}/blog`}>Blog</HeaderLink>
-            <HeaderLink href={`${REPO_NAME}/about`}>About</HeaderLink>
+            <HeaderLink href={`${base}/`}>Home</HeaderLink>
+            <HeaderLink href={`${base}/blog`}>Blog</HeaderLink>
+            <HeaderLink href={`${base}/about`}>About</HeaderLink>
         </div>
 		<!-- TODO: make this a component as it is in both header and footer -->
 		<div class="social-links">
