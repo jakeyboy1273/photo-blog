@@ -1,11 +1,12 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-
+import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://jakeyboy1273.github.io",
   base: "/photo-blog", // This matches the repository name!
+  integrations: [mdx()],
   vite: {
     build: {
       rollupOptions: {

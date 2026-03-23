@@ -94,20 +94,30 @@ const posts = (await getCollection('blog')).sort(
 			<section>
 				<ul>
 					{
-						posts.map((post: BlogEntry) => (
-							<li>
-								<a href={`${base}/blog/${post.id}/`}>
+						posts.map((post: BlogEntry) => {
+							console.log("Post ID discovered:", post.id);
+							// 1. Clean the ID to create a pretty URL
+							// This removes "/index" AND the file extension (like .mdx or .md)
+							const cleanSlug = post.id
+								.replace(/\/index$/, '')
+								.replace(/\.(md|mdx)$/, '');
+						
+							return (
+								<li>
+								{/* 2. Use the cleanSlug here */}
+								<a href={`${base}/blog/${cleanSlug}/`}>
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+									<Image width={720} height={360} src={post.data.heroImage} alt="" />
 									)}
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
+									<FormattedDate date={post.data.pubDate} />
 									</p>
 								</a>
-							</li>
-						))
-					}
+								</li>
+							);
+						})
+					  }
 				</ul>
 			</section>
 		</main>
