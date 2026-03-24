@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL;
 
 <header>
 	<nav>
-		<h2><a href={base + "/"}>{SITE_TITLE}</a></h2>
+		<p class="site-title"><a href={base + "/"}>{SITE_TITLE}</a></p>
 		<div class="internal-links">
             <HeaderLink href={`${base}/`}>Home</HeaderLink>
             <HeaderLink href={`${base}/blog`}>Blog</HeaderLink>
@@ -27,20 +27,20 @@ const base = import.meta.env.BASE_URL;
 		</div>
 	</nav>
 </header>
-<style>
+<style is:inline>
 	header {
 		margin: 0;
 		padding: 0 1em;
 		background: white;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
 	}
-	h2 {
+	.site-title {
 		margin: 0;
 		font-size: 1em;
 	}
 
-	h2 a,
-	h2 a.active {
+	.site-title a,
+	.site-title a.active {
 		text-decoration: none;
 	}
 	nav {

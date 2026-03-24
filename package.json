@@ -13,9 +13,9 @@
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "husky",
-    "lh:run": "lighthouse http://localhost:4321/photo-blog --view",
-    "lighthouse": "npm run build && start-server-and-test preview http://localhost:4321/photo-blog lh:run"
+    "prepare": "npm run format && npm run check && npm run lint",
+    "lh:run": "lighthouse http://localhost:4321/photo-blog/blog/2025-12-sri-lanka --view",
+    "lighthouse": "npm run build && start-server-and-test preview http://localhost:4321/photo-blog/ lh:run"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
