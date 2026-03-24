@@ -22,9 +22,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 1280px;
+				margin: 0 auto;
+				padding: 0 1rem;
 			}
 			.hero-image img {
 				display: block;
+				width: 100%;
+				height: auto;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
@@ -64,11 +69,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						<Image
 							src={heroImage}
 							alt=""
-							widths={[480, 640, 800, 1020]}
-							quality={70}
-							sizes="(max-width: 760px) calc(100vw - 2rem), 720px"
+							widths={[720, 1280, 1920, 2560]}
+							quality={75}
+							sizes="(max-width: 1280px) 100vw, 1280px"
 							loading="eager"
 							fetchpriority="high"
+							class="w-full h-auto rounded-xl shadow-lg"
 						/>
 					)
 				}

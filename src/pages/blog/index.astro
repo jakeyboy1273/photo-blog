@@ -95,7 +95,6 @@ const posts = (await getCollection('blog')).sort(
 				<ul>
 					{
 						posts.map((post: BlogEntry, index: number) => {
-							console.log("Post ID discovered:", post.id);
 							// 1. Clean the ID to create a pretty URL
 							// This removes "/index" AND the file extension (like .mdx or .md)
 							const cleanSlug = post.id
@@ -108,13 +107,13 @@ const posts = (await getCollection('blog')).sort(
 								<a href={`${base}/blog/${cleanSlug}/`}>
 									{post.data.heroImage && (
 									<Image
-										width={720}
-										height={360}
+										width={1200}
 										src={post.data.heroImage}
 										alt=""
 										sizes={index === 0 ? "(max-width: 720px) 100vw, 960px" : "(max-width: 720px) 100vw, 460px"}
 										loading={index === 0 ? "eager" : "lazy"}
 										fetchpriority={index === 0 ? "high" : "auto"}
+										class="w-full h-auto object-cover"
 									/>
 									)}
 									<h2 class="title">{post.data.title}</h2>

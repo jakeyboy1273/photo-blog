@@ -2,8 +2,37 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import PhotoCard from '../components/PhotoCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const base = import.meta.env.BASE_URL;
+
+const images = import.meta.glob<{ default: ImageMetadata }>([
+  '/src/content/blog/**/*.{jpeg,jpg,png,gif}',
+  '/src/assets/**/*.{jpeg,jpg,png,gif}'
+]);
+
+const photos = [
+  {
+    src: "/src/content/blog/2025-12-sri-lanka/elephant_truck.jpg",
+    alt: "Elephant and Truck",
+    caption: "Elephant & Truck"
+  },
+  {
+    src: "/src/content/blog/2025-07-alps/grindelwald_panorama.jpg",
+    alt: "Grindelwald Panorama",
+    caption: "Grindelwald Panorama"
+  },
+  {
+    src: "/src/assets/blog-placeholder-about.jpg",
+    alt: "Placeholder About",
+    caption: "Placeholder About"
+  },
+  {
+    src: "/src/assets/blog-placeholder-1.jpg",
+    alt: "Placeholder 1",
+    caption: "Placeholder 1"
+  }
+];
 ---
 
 <!doctype html>
@@ -18,40 +47,29 @@ const base = import.meta.env.BASE_URL;
 				My Photography Blog!
 			</h1>
 			<p>
-				This page is a work in progress. So far it has a lot of information about the web design framework I am using
-				to build it, and not a lot of information about photos. Here is an <a href={`${base}/blog/2025-12-sri-lanka/`}>Elephant</a>
-				🐘 to keep you company while you wait!
-			</p>
-			<p>-</p>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
+				This website is a work in progress. So far I am hoping to add some of my favourite photos and stories from my travels.
 			</p>
 			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
+				Here is an <a href={`${base}/blog/2025-12-sri-lanka/`}>Elephant</a> 🐘 to keep you company while you wait!
 			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {photos.map((photo, index) => {
+					if (!images[photo.src]) {
+						throw new Error(`"${photo.src}" does not exist in glob: "src/content/blog/**" or "src/assets/**"`);
+					}
+					return (
+						<PhotoCard 
+							imagePath={images[photo.src]()}
+							alt={photo.alt} 
+							caption={photo.caption}
+							/* If it's one of the first 3 images, load it immediately */
+							loading={index < 3 ? "eager" : "lazy"}
+      						fetchpriority={index < 3 ? "high" : "auto"}
+						/>
+					);
+                })}
+            </div>
+        </div>
 		</main>
 		<Footer />
 	</body>
