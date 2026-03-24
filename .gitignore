@@ -12,6 +12,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# reports
+*.report.html
+
 
 # environment variables
 .env

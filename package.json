@@ -13,7 +13,9 @@
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lh:run": "lighthouse http://localhost:4321/photo-blog --view",
+    "lighthouse": "npm run build && start-server-and-test preview http://localhost:4321/photo-blog lh:run"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -32,7 +34,12 @@
     "eslint": "^10.1.0",
     "eslint-plugin-astro": "^1.6.0",
     "husky": "^9.1.7",
+    "lighthouse": "^13.0.3",
     "prettier": "^3.8.1",
+    "start-server-and-test": "^2.1.5",
     "typescript-eslint": "^8.57.1"
+  },
+  "overrides": {
+    "vite": "7.3.1"
   }
 }
