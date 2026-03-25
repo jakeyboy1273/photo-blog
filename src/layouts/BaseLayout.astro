@@ -1,0 +1,27 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<link rel="icon" type="image/png" href={`${base}/favicon-96x96.png`} sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="shortcut icon" href={`${base}/favicon.ico`} />
+		<link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
+		<meta name="apple-mobile-web-app-title" content="Jake's Jolly Jaunts" />
+		<link rel="manifest" href={`${base}/site.webmanifest`} />
+		
+		<BaseHead title={title} description={description} />
+		<slot name="head" /> </head>
+	<body>
+		<Header />
+		<slot />
+        <Footer />
+	</body>
+</html>
