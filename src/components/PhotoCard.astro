@@ -4,19 +4,21 @@ import { Image } from 'astro:assets';
 const { imagePath, alt, caption, loading = "lazy", fetchpriority = "auto" } = Astro.props;
 ---
 
-<div class="overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-white">
-    <Image 
-        src={imagePath} 
-        alt={alt}
-        widths={[400, 600, 800]}
-        sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
-        quality={75}
-        format="webp"
-        loading={loading}
-        fetchpriority={fetchpriority}
-        class="w-full h-64 object-cover"
-    />
-    <div class="p-4">
-        <p class="text-gray-700 font-medium">{caption}</p>
+<div class="aspect-5/4 flex flex-col overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+    <div class="h-[80%] w-full flex">
+        <Image
+            src={imagePath} 
+            alt={alt}
+            widths={[400, 600, 800]}
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
+            quality={75}
+            format="webp"
+            loading={loading}
+            fetchpriority={fetchpriority}
+            class="min-w-full min-h-full object-cover"
+        />
+    </div>
+    <div class="h-[20%] p-1 flex justify-center">
+        <p class="text-gray-700 text-sm md:text-base">{caption}</p>
     </div>
 </div>
