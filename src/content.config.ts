@@ -2,6 +2,19 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
+const albums = defineCollection({
+  loader: glob({
+    pattern: "**/*.{yaml,yml,json}",
+    base: "./src/content/albums",
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      cover: image(),
+    }),
+});
+
 const blog = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
   // Supports flat files (post.md) and folder-based posts (folder/index.mdx) with co-located images.
@@ -39,4 +52,4 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+export const collections = { blog, albums };
