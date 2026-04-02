@@ -20,8 +20,11 @@ pnpm-debug.log*
 .env
 .env.production
 
+# IDE files
+.vscode/
+
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
-.idea/
+# lighthouse folder
+.lighthouseci/

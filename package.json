@@ -14,9 +14,8 @@
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "npm run format && npm run check && npm run lint",
-    "lh:run": "lighthouse http://localhost:4321/photo-blog/ --view",
-    "lighthouse": "npm run build && start-server-and-test preview http://localhost:4321/photo-blog/ lh:run"
+    "prepare": "npm run format && npm run check && npm run lint && npm run lighthouse",
+    "lighthouse": "astro build && lhci collect && lhci assert"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -30,12 +29,12 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@eslint/js": "^10.0.1",
     "@typescript-eslint/parser": "^8.57.1",
     "eslint": "^10.1.0",
     "eslint-plugin-astro": "^1.6.0",
     "husky": "^9.1.7",
-    "lighthouse": "^13.0.3",
     "prettier": "^3.8.1",
     "start-server-and-test": "^2.1.5",
     "typescript-eslint": "^8.57.1"
