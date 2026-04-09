@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-const albums = defineCollection({
+const album = defineCollection({
   loader: glob({
     pattern: "**/*.{yaml,yml,json}",
     base: "./src/content/albums",
@@ -10,7 +10,7 @@ const albums = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      description: z.string().optional(),
+      description: z.string(),
       cover: image(),
     }),
 });
@@ -52,4 +52,4 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog, albums };
+export const collections = { blog, album };
