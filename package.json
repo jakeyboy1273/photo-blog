@@ -14,8 +14,9 @@
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "npm run format && npm run check && npm run lint && npm run lighthouse",
-    "lighthouse": "astro build && lhci collect && lhci assert"
+    "validate": "npm run format && npm run check && npm run lint && npm run lighthouse",
+    "lighthouse": "astro build && lhci collect && lhci assert",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
