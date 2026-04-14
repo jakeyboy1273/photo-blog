@@ -101,12 +101,12 @@ const posts = (await getCollection('blog')).sort(
 									<a href={`${base}/blog/${cleanSlug}/`}>
 										{post.data.heroImage && (
 											<Image
-												width={1200}
 												src={post.data.heroImage}
 												alt=""
-										sizes={index === 0 ? "(max-width: 720px) 100vw, 960px" : "(max-width: 720px) 100vw, 460px"}
-										loading={index === 0 ? "eager" : "lazy"}
-										fetchpriority={index === 0 ? "high" : "auto"}
+												layout="constrained"
+              									quality="mid"
+												loading={index === 0 ? "eager" : "lazy"}
+												fetchpriority={index === 0 ? "high" : "auto"}
 												class="w-full h-auto object-cover"
 											/>
 										)}

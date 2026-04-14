@@ -33,9 +33,6 @@ const imagePromises = Object.entries(allImages)
   .map(([_, resolver]) => resolver().then((mod) => mod.default));
 
 const images = await Promise.all(imagePromises);
-
-// Shuffle images in random order for a dynamic feel
-images.sort(() => Math.random() - 0.5);
 ---
 
 <!doctype html>
@@ -54,13 +51,22 @@ images.sort(() => Math.random() - 0.5);
       <div class="flex justify-center my-8">
         <div class="max-w-[95vw] px-4 columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 2xl:columns-6 3xl:columns-8 gap-4">
         {
-          images.map((img) => (
+          images.map((img, index) => (
             <Image
               src={img}
               alt={`Image from ${album.data.title} album`}
+              layout="constrained"
               quality="mid"
+              sizes="(max-width: 640px) 100vw,
+                      (max-width: 768px) 50vw,
+                      (max-width: 1024px) 33vw,
+                      (max-width: 1280px) 25vw,
+                      (max-width: 1536px) 20vw,
+                      (max-width: 1920px) 16.6vw,
+                      12.5vw"
               class="rounded-sm mb-4 w-full h-auto border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg inline-block"
-              loading="lazy"
+              loading={index < 2 ? "eager" : "lazy"}
+              fetchpriority={index < 2 ? "high" : "auto"}
             />
           ))
         }
@@ -69,7 +75,7 @@ images.sort(() => Math.random() - 0.5);
     
       <p class="text-lg my-4 text-center">
         <a href={`${base}/gallery/`} class="text-gray-400 hover:text-white hover:underline transition-colors"
-          >Go back →</a
+          >← Go back</a
         >
       </p>
     </div>

@@ -3,7 +3,13 @@
     "collect": {
       "numberOfRuns": 1,
       "startServerCommand": "npm run preview",
-      "url": ["http://localhost:4321/photo-blog/"]
+      "url": [
+        "http://localhost:4321/photo-blog",
+        "http://localhost:4321/photo-blog/blog",
+        "http://localhost:4321/photo-blog/blog/2025-12-sri-lanka",
+        "http://localhost:4321/photo-blog/gallery",
+        "http://localhost:4321/photo-blog/gallery/2025-04-cairngorms"
+      ]
     },
     "assert": {
       "assertions": {

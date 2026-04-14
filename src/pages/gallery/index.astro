@@ -22,15 +22,15 @@ const album: CollectionEntry<'album'>[] = await getCollection("album");
                     <Image
                         src={item.data.cover}
                         alt={item.data.title}
-                        width={720}
-                    quality="mid"
-                    class:list={["rounded-lg transition-all", "group-hover:shadow-lg group-hover:opacity-90"]}
-                />
-                <div class="mt-4 text-center text-neutral-700">
-                    <strong class="font-normal">{item.data.title}</strong>
-                    <p class="text-xs">{item.data.description}</p>
-                </div>
-                </a>
+                        layout="constrained"
+                        quality="mid"
+                        class:list={["rounded-lg transition-all", "group-hover:shadow-lg group-hover:opacity-90"]}
+                    />
+                    <div class="mt-4 text-center text-neutral-700">
+                        <strong class="font-normal">{item.data.title}</strong>
+                        <p class="text-xs">{item.data.description}</p>
+                    </div>
+                    </a>
                 )
             })
             }
