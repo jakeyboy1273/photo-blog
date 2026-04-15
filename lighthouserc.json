@@ -7,8 +7,8 @@
         "http://localhost:4321/photo-blog",
         "http://localhost:4321/photo-blog/blog",
         "http://localhost:4321/photo-blog/blog/2025-12-sri-lanka",
-        "http://localhost:4321/photo-blog/gallery",
-        "http://localhost:4321/photo-blog/gallery/2025-04-cairngorms"
+        "http://localhost:4321/photo-blog/galleries",
+        "http://localhost:4321/photo-blog/galleries/2025-04-cairngorms"
       ]
     },
     "assert": {

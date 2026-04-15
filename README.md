@@ -33,7 +33,7 @@ The `src/content/` directory contains "[collections](https://docs.astro.build/en
 Implemented collections:
 
 - blog (.MDX blog posts)
-- albums (indexed directories containing photos)
+- galleries (indexed directories containing photos)
 
 Any static assets are placed in the `public/` directory.
 

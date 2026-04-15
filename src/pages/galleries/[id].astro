@@ -8,30 +8,30 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 import Lightbox from '../../components/Lightbox.astro';
 
 export async function getStaticPaths() {
-  const albums = await getCollection("album");
+  const galleries = await getCollection("galleries");
 
-  return albums.map((album: CollectionEntry<"album">) => {
-    const cleanId = album.id.split('/')[0];
+  return galleries.map((gallery: CollectionEntry<"gallery">) => {
+    const cleanId = gallery.id.split('/')[0];
     
     return {
       params: { id: cleanId },
-      props: { album },
+      props: { gallery },
     };
   });
 }
 
 interface Props {
-  album: CollectionEntry<"album">;
+  gallery: CollectionEntry<"gallery">;
 }
 
-const { album } = Astro.props as Props;
-const albumId = album.id.split('/')[0];
+const { gallery } = Astro.props as Props;
+const galleryId = gallery.id.split('/')[0];
 const base = import.meta.env.BASE_URL;
 
-const allImages = import.meta.glob<{ default: ImageMetadata }>("/src/content/albums/**/*.{jpeg,jpg}");
+const allImages = import.meta.glob<{ default: ImageMetadata }>("/src/content/galleries/**/*.{jpeg,jpg}");
 
 const imagePromises = Object.entries(allImages)
-  .filter(([path]) => path.includes(`/src/content/albums/${albumId}/`))
+  .filter(([path]) => path.includes(`/src/content/galleries/${galleryId}/`))
   .map(([_, resolver]) => resolver().then((mod) => mod.default));
 
 const images = await Promise.all(imagePromises);
@@ -39,14 +39,14 @@ const images = await Promise.all(imagePromises);
 
 <!doctype html>
 <html lang="en">
-  <BaseLayout title={`${album.data.title} | ${SITE_TITLE}`} description={album.data.description || SITE_DESCRIPTION}>
+  <BaseLayout title={`${gallery.data.title} | ${SITE_TITLE}`} description={gallery.data.description || SITE_DESCRIPTION}>
     <div class="text-center my-16 mb-32">
       <h1 class="text-3xl xl:text-6xl font-bold">
-        {album.data.title}
+        {gallery.data.title}
       </h1>
-      {album.data.description && (
+      {gallery.data.description && (
         <p class="text-lg xl:text-2xl my-4">
-          {album.data.description}
+          {gallery.data.description}
         </p>
       )}
     
@@ -62,7 +62,7 @@ const images = await Promise.all(imagePromises);
             >
               <Image
                 src={img}
-                alt={`Image from ${album.data.title} album`}
+                alt={`Image from ${gallery.data.title} gallery`}
                 layout="constrained"
                 quality="mid"
                 sizes="(max-width: 640px) 100vw,
@@ -82,7 +82,7 @@ const images = await Promise.all(imagePromises);
       </div>
     
       <p class="text-lg my-4 text-center">
-        <a href={`${base}/gallery/`} class="text-gray-400 hover:text-white hover:underline transition-colors"
+        <a href={`${base}/galleries/`} class="text-gray-400 hover:text-white hover:underline transition-colors"
           >← Go back</a
         >
       </p>
