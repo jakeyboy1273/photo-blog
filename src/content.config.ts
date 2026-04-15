@@ -15,11 +15,11 @@ const galleries = defineCollection({
     }),
 });
 
-const blog = defineCollection({
-  // Load Markdown and MDX files in the `src/content/blog/` directory.
+const stories = defineCollection({
+  // Load Markdown and MDX files in the `src/content/stories/` directory.
   // Supports flat files (post.md) and folder-based posts (folder/index.mdx) with co-located images.
   loader: glob({
-    base: "./src/content/blog",
+    base: "./src/content/stories",
     pattern: "**/*.{md,mdx}",
     generateId: ({
       entry,
@@ -33,7 +33,7 @@ const blog = defineCollection({
         return data.slug;
       }
 
-      // Convert path to URL-friendly id: "blog-post/index.mdx" -> "blog-post"
+      // Convert path to URL-friendly id: "story/index.mdx" -> "story"
       return entry
         .replace(/\.(md|mdx)$/, "")
         .replace(/\/index$/, "")
@@ -52,4 +52,4 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog, galleries };
+export const collections = { stories, galleries };

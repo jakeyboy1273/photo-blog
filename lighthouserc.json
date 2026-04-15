@@ -5,8 +5,8 @@
       "startServerCommand": "npm run preview",
       "url": [
         "http://localhost:4321/photo-blog",
-        "http://localhost:4321/photo-blog/blog",
-        "http://localhost:4321/photo-blog/blog/2025-12-sri-lanka",
+        "http://localhost:4321/photo-blog/stories",
+        "http://localhost:4321/photo-blog/stories/2025-12-sri-lanka",
         "http://localhost:4321/photo-blog/galleries",
         "http://localhost:4321/photo-blog/galleries/2025-04-cairngorms"
       ]

@@ -28,11 +28,11 @@ Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page
 
 The `src/components/` directory contains reusable Astro components.
 
-The `src/content/` directory contains "[collections](https://docs.astro.build/en/guides/content-collections/)" of related files. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check the frontmatter using an optional schema.
+The `src/content/` directory contains "[collections](https://docs.astro.build/en/guides/content-collections/)" of related files. Use `getCollection()` to retrieve posts from `src/content/stories/`, and type-check the frontmatter using an optional schema.
 
 Implemented collections:
 
-- blog (.MDX blog posts)
+- stories (.MDX blog posts)
 - galleries (indexed directories containing photos)
 
 Any static assets are placed in the `public/` directory.

@@ -6,9 +6,9 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const base = import.meta.env.BASE_URL;
-type BlogEntry = CollectionEntry<'blog'>;
-const posts = (await getCollection('blog')).sort(
-	(a: BlogEntry, b: BlogEntry) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+type Story = CollectionEntry<'story'>;
+const posts = (await getCollection('stories')).sort(
+	(a: Story, b: Story) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
@@ -88,7 +88,7 @@ const posts = (await getCollection('blog')).sort(
 			<section>
 				<ul>
 					{
-						posts.map((post: BlogEntry, index: number) => {
+						posts.map((post: Story, index: number) => {
 							// 1. Clean the ID to create a pretty URL
 							// This removes "/index" AND the file extension (like .mdx or .md)
 							const cleanSlug = post.id
@@ -98,7 +98,7 @@ const posts = (await getCollection('blog')).sort(
 							return (
 								<li>
 									{/* 2. Use the cleanSlug here */}
-									<a href={`${base}/blog/${cleanSlug}/`}>
+									<a href={`${base}/stories/${cleanSlug}/`}>
 										{post.data.heroImage && (
 											<Image
 												src={post.data.heroImage}

@@ -5,7 +5,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const base = import.meta.env.BASE_URL;
 
 const images = import.meta.glob<{ default: ImageMetadata }>([
-    '/src/content/blog/**/*.{jpeg,jpg,png,gif}',
+    '/src/content/stories/**/*.{jpeg,jpg,png,gif}',
     '/src/content/galleries/**/*.{jpeg,jpg,png,gif}'
 ]);
 
@@ -16,7 +16,7 @@ const photos = [
         caption: "Elephant & Truck"
     },
     {
-        src: "/src/content/blog/2025-07-alps/grindelwald_panorama.jpg",
+        src: "/src/content/stories/2025-07-alps/grindelwald_panorama.jpg",
         alt: "Grindelwald Panorama",
         caption: "Grindelwald Panorama"
     }
@@ -34,12 +34,12 @@ const photos = [
                 This website is a work in progress. So far I am hoping to add some of my favourite photos and stories from my travels.
             </p>
             <p>
-                Here is an <a href={`${base}/blog/2025-12-sri-lanka/`}>Elephant</a> 🐘 to keep you company while you wait!
+                Here is an <a href={`${base}/stories/2025-12-sri-lanka/`}>Elephant</a> 🐘 to keep you company while you wait!
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {photos.map((photo, index) => {
                     if (!images[photo.src]) {
-                        throw new Error(`"${photo.src}" does not exist in glob: "src/content/blog/**" or "src/assets/**"`);
+                        throw new Error(`"${photo.src}" does not exist in glob: "src/content/stories/**" or "src/assets/**"`);
                     }
                     return (
                         <PhotoCard 
