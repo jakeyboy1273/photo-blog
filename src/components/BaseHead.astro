@@ -3,7 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
+import FallbackImage from '../content/albums/2025-12-sri-lanka/elephant-truck_pb_c.jpg';
 import { SITE_TITLE } from '../consts';
 const base = import.meta.env.BASE_URL;
 
@@ -28,7 +28,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 	rel="alternate"
 	type="application/rss+xml"
 	title={SITE_TITLE}
-	href={new URL('rss.xml', Astro.site)}
+	href={new URL(`${base}/rss.xml`, Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
 
