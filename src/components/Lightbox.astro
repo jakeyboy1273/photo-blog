@@ -1,0 +1,23 @@
+---
+import 'photoswipe/style.css';
+---
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+  function initLightbox() {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#gallery', 
+      children: 'a',
+      pswpModule: () => import('photoswipe'),
+    });
+    
+    lightbox.init();
+  }
+
+  // Runs on initial load
+  initLightbox();
+
+  // If you are using Astro's View Transitions, this is CRITICAL:
+  document.addEventListener('astro:page-load', initLightbox);
+</script>
