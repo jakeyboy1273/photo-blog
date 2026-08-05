@@ -5,7 +5,7 @@ Learning some frontend by weaning myself off Instagram
 This project is a photography blog which I am using to learn Astro, Tailwind CSS, and frontend web design in general. My goal is to have a place to post my favourite photos and stories where I can own the format and deployment.
 
 The project is hosted on GitHub pages at
-[jakeyboy1273.github.io/photo-blog](jakeyboy1273.github.io/photo-blog)
+[jakeyboy1273.github.io/photo-blog](https://jakeyboy1273.github.io/photo-blog)
 
 ## 🚀 Project Structure
 
@@ -53,10 +53,22 @@ All commands are run from the root of the project, from a terminal:
 | `npm run check ...`       | Run astro check on the project                   |
 | `npm run lint ...`        | Run esLint on the project                        |
 | `npm run format ...`      | Run prettier formatter on the project            |
-| `npm run prepare ...`     | Run pre-commit commands (format, check, lint)    |
+| `npm run prepare ...`     | Run pre-commit commands on modified files        |
 | `npm run lighthouse ...`  | Run a local Lighthouse score benchmark test      |
+| `npm run validate ...`    | Run format, check, lint and lighthouse in one go |
 
-## Credit
+## 💻 Development
+
+### 🦺 Pre-Commit
+
+This project uses Husky to orchestrate pre-commit commands. Husky automatically runs `format`, `check`, `lint` and `lighthouse` before each commit, to avoid regressions.
+
+### 🔄 Updating Dependencies
+
+Update the Node packages with `npm update` and `npm audit fix`
+Astro itself can be upgraded with `npx @astrojs/upgrade`
+
+### ✏️ Credit
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
 
