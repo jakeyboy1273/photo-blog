@@ -12,13 +12,15 @@ const galleries = defineCollection({
       title: z.string(),
       description: z.string(),
       cover: image(),
-      images: z.array(
-        z.object({
-          file: image(),
-          caption: z.string().optional(),
-        })
-      ).default([]),
-      story: reference("stories").optional()
+      images: z
+        .array(
+          z.object({
+            file: image(),
+            caption: z.string().optional(),
+          }),
+        )
+        .default([]),
+      story: reference("stories").optional(),
     }),
 });
 

@@ -11,6 +11,11 @@ export default defineConfig({
     inlineStylesheets: "always",
   },
   vite: {
+    server: {
+      watch: {
+        ignored: ["**/.lighthouseci/**"],
+      },
+    },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

@@ -65,8 +65,8 @@ const images = gallery.data.images;
                         (max-width: 1920px) 16.6vw,
                         12.5vw"
                 class="rounded-sm mb-4 w-full h-auto border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg inline-block"
-                loading={index < 2 ? "eager" : "lazy"}
-                fetchpriority={index < 2 ? "high" : "auto"}
+                loading={index < 1 ? "eager" : "lazy"}
+                fetchpriority={index < 1 ? "high" : "auto"}
               />
             </a>
           ))}
