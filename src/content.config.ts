@@ -1,4 +1,4 @@
-import { defineCollection } from "astro:content";
+import { defineCollection, reference } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
@@ -12,6 +12,13 @@ const galleries = defineCollection({
       title: z.string(),
       description: z.string(),
       cover: image(),
+      images: z.array(
+        z.object({
+          file: image(),
+          caption: z.string().optional(),
+        })
+      ).default([]),
+      story: reference("stories").optional()
     }),
 });
 
@@ -49,6 +56,7 @@ const stories = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),
+      gallery: reference("galleries").optional(),
     }),
 });
 

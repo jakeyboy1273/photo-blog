@@ -10,8 +10,8 @@ import Lightbox from '../../components/Lightbox.astro';
 export async function getStaticPaths() {
   const galleries = await getCollection("galleries");
 
-  return galleries.map((gallery: CollectionEntry<"gallery">) => {
-    const cleanId = gallery.id.split('/')[0];
+  return galleries.map((gallery: CollectionEntry<"galleries">) => {
+    const cleanId = gallery.id.replace(/\/index$/, "").replace(/\.(yaml|yml|json)$/, "");
     
     return {
       params: { id: cleanId },
@@ -21,20 +21,12 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  gallery: CollectionEntry<"gallery">;
+  gallery: CollectionEntry<"galleries">;
 }
 
 const { gallery } = Astro.props as Props;
-const galleryId = gallery.id.split('/')[0];
 const base = import.meta.env.BASE_URL;
-
-const allImages = import.meta.glob<{ default: ImageMetadata }>("/src/content/galleries/**/*.{jpeg,jpg}");
-
-const imagePromises = Object.entries(allImages)
-  .filter(([path]) => path.includes(`/src/content/galleries/${galleryId}/`))
-  .map(([_, resolver]) => resolver().then((mod) => mod.default));
-
-const images = await Promise.all(imagePromises);
+const images = gallery.data.images;
 ---
 
 <!doctype html>
@@ -52,17 +44,17 @@ const images = await Promise.all(imagePromises);
     
       <div class="flex justify-center my-8">
         <div id="gallery" class="max-w-[95vw] px-4 columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 2xl:columns-6 3xl:columns-8 gap-4">
-          {images.map((img, index) => (
+          {images.map((img: { file: ImageMetadata; caption?: string }, index: number) => (
             <a 
-            href={img.src} 
-            data-pswp-width={img.width} 
-            data-pswp-height={img.height} 
-            target="_blank"
-            class="inline-block mb-4"
+              href={img.file.src} 
+              data-pswp-width={img.file.width} 
+              data-pswp-height={img.file.height} 
+              target="_blank"
+              class="inline-block mb-4"
             >
               <Image
-                src={img}
-                alt={`Image from ${gallery.data.title} gallery`}
+                src={img.file}
+                alt={img.caption || `Image from ${gallery.data.title} gallery`}
                 layout="constrained"
                 quality="mid"
                 sizes="(max-width: 640px) 100vw,

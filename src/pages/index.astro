@@ -5,18 +5,17 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const base = import.meta.env.BASE_URL;
 
 const images = import.meta.glob<{ default: ImageMetadata }>([
-    '/src/content/stories/**/*.{jpeg,jpg,png,gif}',
-    '/src/content/galleries/**/*.{jpeg,jpg,png,gif}'
+    '/src/images/**/*.{jpeg,jpg,png,gif,webp}',
 ]);
 
 const photos = [
     {
-        src: "/src/content/galleries/2025-12-sri-lanka/elephant-truck_pb_c.jpg",
+        src: "/src/images/2025-12-sri-lanka/elephant-truck_pb_c.jpg",
         alt: "Elephant and Truck",
         caption: "Elephant & Truck"
     },
     {
-        src: "/src/content/stories/2025-07-alps/grindelwald_panorama.jpg",
+        src: "/src/images/2025-07-alps/grindelwald_panorama.jpg",
         alt: "Grindelwald Panorama",
         caption: "Grindelwald Panorama"
     }
