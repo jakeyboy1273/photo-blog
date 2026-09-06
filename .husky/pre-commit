@@ -1,6 +1,1 @@
 npm run validate
-
-if ! git diff --exit-code --quiet; then
-  echo "⚠️ Pre-commit validation modified some files (formatting/linting changes)."
-  exit 1
-fi

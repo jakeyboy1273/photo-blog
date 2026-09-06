@@ -1,21 +1,61 @@
 title: "Cairngorms Traverse"
 description: "A solo wild-camping adventure on foot through the heart of the Cairngorms."
-cover: "../../images/2025-04-cairngorms/devils-tent_pb_c.jpg"
+cover: "../../images/2025-04-cairngorms/devils-tent.jpg"
 
 images:
-  # - file: "../../images/2025-04-cairngorms/braeriach-panorama_pb_c.jpg"
-  #   caption: "Braeriach Panorama"
-  - file: "../../images/2025-04-cairngorms/cairntoul-ridge_pb_c.jpg"
-    caption: "Cairntoul Ridge"
-  - file: "../../images/2025-04-cairngorms/carnnacriche-bag_pb_c.jpg"
-    caption: "Carn-na-Criche Bag"
-  - file: "../../images/2025-04-cairngorms/corrour-tents_pb_c.jpg"
-    caption: "Corrour Tents"
-  - file: "../../images/2025-04-cairngorms/devils-point_pb_c.jpg"
-    caption: "Devil's Point"
-  - file: "../../images/2025-04-cairngorms/devils-tent_pb_c.jpg"
-    caption: "Devil's Tent"
-  - file: "../../images/2025-04-cairngorms/lairig-ghru_pb_c.jpg"
-    caption: "Lairig Ghru"
-  - file: "../../images/2025-04-cairngorms/tarf-hotel_pb_c.jpg"
-    caption: "Tarf Hotel"
+  - file: "../../images/2025-04-cairngorms/clouds-tree.jpg"
+    caption: "The sun rises over the beautiful Glen Tilt"
+
+  - file: "../../images/2025-04-cairngorms/tilt-sheep.jpg"
+    caption: "Flanked by a flock of glen sheep"
+
+  - file: "../../images/2025-04-cairngorms/tarf-hotel.jpg"
+    caption: "Luxurious and accommodating Tarf Hotel"
+
+  - file: "../../images/2025-04-cairngorms/crumbled-ruins.jpg"
+    caption: "Crumbled ruins near Red House Bothy"
+
+  - file: "../../images/2025-04-cairngorms/lairig-ghru.jpg"
+    caption: "First glimpse of the infamous Lairig Ghru"
+
+  - file: "../../images/2025-04-cairngorms/corrour-tents.jpg"
+    caption: "Corrour bothy is beseigde by fellow hikers' tents"
+
+  - file: "../../images/2025-04-cairngorms/devils-tent.jpg"
+    caption: "My trusty tent pitched atop Devil's Point"
+
+  - file: "../../images/2025-04-cairngorms/devils-point.jpg"
+    caption: "Panoramic view from the summit of Devil's Point"
+
+  - file: "../../images/2025-04-cairngorms/devils-peak.jpg"
+    caption: "View of the Cairngorm plateau from the summit of Devil's Point"
+
+  - file: "../../images/2025-04-cairngorms/ridge-cloud.jpg"
+    caption: "A cloud inversion snakes around the peaks of the ridge"
+
+  - file: "../../images/2025-04-cairngorms/cairntoul-ridge.jpg"
+    caption: "Cairntoul Ridge disappearing into the inversion"
+
+  - file: "../../images/2025-04-cairngorms/carnnacriche-bag.jpg"
+    caption: "My rucksack having a well deserved break at the summit of Carn-na-Criche"
+
+  - file: "../../images/2025-04-cairngorms/ridge-snow.jpg"
+    caption: "Carn-na-Criche stretching away as I approach Braeriach"
+
+  - file: "../../images/2025-04-cairngorms/icy-plateau.jpg"
+    caption: "A frozen river meanders through the tundra-like plateau"
+
+  - file: "../../images/2025-04-cairngorms/braeriach-panorama.jpg"
+    caption: "Panoramic view from the summit of Braeriach"
+
+  - file: "../../images/2025-04-cairngorms/lairig-behind.jpg"
+    caption: "Reuniting with the Lairig Ghru, looking back"
+
+  - file: "../../images/2025-04-cairngorms/distant-glenmore.jpg"
+    caption: "First glimpse of Glenmore and Loch Morlich in the distance"
+
+  - file: "../../images/2025-04-cairngorms/loch-morlich.jpg"
+    caption: "Loch Morlich visible through the heart of Glenmore Forest"
+
+  - file: "../../images/2025-04-cairngorms/forest-hide.jpg"
+    caption: "Quaint Ranger's Lodge in the middle of the forest"
