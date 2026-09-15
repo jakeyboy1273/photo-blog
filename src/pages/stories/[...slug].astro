@@ -1,6 +1,8 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Story from '../../layouts/Story.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import Figure from '../../components/Figure.astro';
 
 export async function getStaticPaths() {
     const posts = await getCollection('stories');
@@ -20,5 +22,6 @@ const { Content } = await render(post);
 ---
 
 <Story {...post.data}>
-	<Content />
+	<Content components={{ Figure }} />
+	<Lightbox />
 </Story>

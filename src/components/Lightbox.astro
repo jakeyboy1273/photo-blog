@@ -5,19 +5,47 @@ import "photoswipe/style.css";
 <script>
   import PhotoSwipeLightbox from "photoswipe/lightbox";
 
+  let lightboxInstance: PhotoSwipeLightbox | null = null;
+
   function initLightbox() {
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: "#gallery", 
-      children: "a",
+    if (lightboxInstance) {
+      lightboxInstance.destroy();
+      lightboxInstance = null;
+    }
+
+    lightboxInstance = new PhotoSwipeLightbox({
+      gallery: "#gallery, article.prose", 
+      children: "a, img:not(a img)",
       pswpModule: () => import("photoswipe"),
     });
-    
-    lightbox.init();
+
+    // Extra information for images in stories
+    lightboxInstance.addFilter("domItemData", (itemData, element) => {
+      if (element instanceof HTMLImageElement) {
+        const attrW = parseInt(element.getAttribute("width") || "0", 10);
+        const attrH = parseInt(element.getAttribute("height") || "0", 10);
+
+        itemData.src = element.currentSrc || element.src;
+        itemData.w = element.naturalWidth || attrW || 1200;
+        itemData.h = element.naturalHeight || attrH || 800;
+        itemData.msrc = element.currentSrc || element.src;
+      }
+      return itemData;
+    });
+
+    lightboxInstance.init();
   }
 
   // Runs on initial load
   initLightbox();
 
-  // If you are using Astro's View Transitions, this is CRITICAL:
+  // If using Astro View Transitions:
   document.addEventListener("astro:page-load", initLightbox);
 </script>
+
+<style is:global>
+  #gallery a,
+  article.prose img {
+    cursor: pointer;
+  }
+</style>

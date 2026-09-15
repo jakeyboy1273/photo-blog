@@ -1,0 +1,39 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string | ImageMetadata;
+  alt: string;
+  caption?: string;
+  align?: 'left' | 'right' | 'center' | 'full';
+  width?: string | number;
+  class?: string;
+}
+
+const { src, alt, caption, align = 'full', width, class: className = '' } = Astro.props;
+
+let alignClass = '';
+if (align === 'left') {
+  alignClass = 'float-left';
+} else if (align === 'right') {
+  alignClass = 'float-right';
+} else if (align === 'center') {
+  alignClass = 'center-image';
+}
+
+const figWidth = width ? (typeof width === 'number' ? `${width}px` : width) : undefined;
+---
+
+<figure
+  class:list={[alignClass, className]}
+  style={figWidth ? `--fig-width: ${figWidth};` : undefined}
+>
+  {typeof src === 'string' ? (
+    <img src={src} alt={alt} />
+  ) : (
+    <Image src={src} alt={alt} />
+  )}
+  {caption && <figcaption>{caption}</figcaption>}
+  <slot />
+</figure>
