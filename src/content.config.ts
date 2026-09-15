@@ -11,6 +11,7 @@ const galleries = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
+      date: z.coerce.date().optional(),
       cover: image(),
       images: z
         .array(

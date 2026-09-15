@@ -14,13 +14,32 @@ import "photoswipe/style.css";
     }
 
     lightboxInstance = new PhotoSwipeLightbox({
-      gallery: "#gallery, article.prose", 
-      children: "a, img:not(a img)",
+      gallery: "#gallery, .prose, .hero-image", 
+      children: "a, img",
       pswpModule: () => import("photoswipe"),
     });
 
-    // Extra information for images in stories
+    // Extract image dimensions and captions for both gallery anchors and story inline images
     lightboxInstance.addFilter("domItemData", (itemData, element) => {
+      if (!(element instanceof HTMLElement)) {
+        return itemData;
+      }
+
+      const imgEl = element instanceof HTMLImageElement ? element : element.querySelector("img");
+
+      // Extract caption from data attributes, figure figcaption, or img alt text
+      const caption =
+        element.getAttribute("data-pswp-caption") ||
+        element.getAttribute("data-caption") ||
+        element.closest("figure")?.querySelector("figcaption")?.textContent?.trim() ||
+        (imgEl ? imgEl.getAttribute("alt") : null) ||
+        element.getAttribute("alt");
+
+      if (caption) {
+        itemData.caption = caption;
+      }
+
+      // Handle standalone <img> elements (e.g. in story markdown/mdx)
       if (element instanceof HTMLImageElement) {
         const attrW = parseInt(element.getAttribute("width") || "0", 10);
         const attrH = parseInt(element.getAttribute("height") || "0", 10);
@@ -29,8 +48,58 @@ import "photoswipe/style.css";
         itemData.w = element.naturalWidth || attrW || 1200;
         itemData.h = element.naturalHeight || attrH || 800;
         itemData.msrc = element.currentSrc || element.src;
+      } 
+      // Handle <a> wrappers (e.g. in gallery pages or linked story images)
+      else {
+        const pswpW = parseInt(element.getAttribute("data-pswp-width") || "0", 10);
+        const pswpH = parseInt(element.getAttribute("data-pswp-height") || "0", 10);
+
+        if (pswpW) {
+          itemData.w = pswpW;
+        } else if (imgEl) {
+          const attrW = parseInt(imgEl.getAttribute("width") || "0", 10);
+          itemData.w = imgEl.naturalWidth || attrW || 1200;
+        }
+
+        if (pswpH) {
+          itemData.h = pswpH;
+        } else if (imgEl) {
+          const attrH = parseInt(imgEl.getAttribute("height") || "0", 10);
+          itemData.h = imgEl.naturalHeight || attrH || 800;
+        }
+
+        if (imgEl) {
+          itemData.msrc = imgEl.currentSrc || imgEl.src;
+        }
       }
+
       return itemData;
+    });
+
+    lightboxInstance.on("uiRegister", () => {
+      const pswp = lightboxInstance?.pswp;
+      if (pswp?.ui) {
+        pswp.ui.registerElement({
+          name: "custom-caption",
+          order: 9,
+          isButton: false,
+          appendTo: "root",
+          html: "",
+          onInit: (el, pswpInstance) => {
+            pswpInstance.on("change", () => {
+              const currSlide = pswpInstance.currSlide;
+              const captionText = currSlide?.data?.caption;
+              if (captionText) {
+                el.innerHTML = captionText;
+                el.style.display = "block";
+              } else {
+                el.innerHTML = "";
+                el.style.display = "none";
+              }
+            });
+          },
+        });
+      }
     });
 
     lightboxInstance.init();
@@ -45,7 +114,27 @@ import "photoswipe/style.css";
 
 <style is:global>
   #gallery a,
-  article.prose img {
+  .prose img,
+  .hero-image img {
     cursor: pointer;
+  }
+
+  .pswp__custom-caption {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    color: #f8fafc;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    max-width: 85%;
+    text-align: center;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 </style>
