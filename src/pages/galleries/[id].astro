@@ -7,12 +7,13 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 import Lightbox from '../../components/Lightbox.astro';
+import { getCleanSlug } from '../../utils/slug';
 
 export async function getStaticPaths() {
   const galleries = await getCollection("galleries");
 
   return galleries.map((gallery: CollectionEntry<"galleries">) => {
-    const cleanId = gallery.id.replace(/\/index$/, "").replace(/\.(yaml|yml|json)$/, "");
+    const cleanId = getCleanSlug(gallery.id);
     
     return {
       params: { id: cleanId },
@@ -30,9 +31,7 @@ const base = import.meta.env.BASE_URL;
 const images = gallery.data.images;
 ---
 
-<!doctype html>
-<html lang="en">
-  <BaseLayout title={`${gallery.data.title} | ${SITE_TITLE}`} description={gallery.data.description || SITE_DESCRIPTION}>
+<BaseLayout title={`${gallery.data.title} | ${SITE_TITLE}`} description={gallery.data.description || SITE_DESCRIPTION}>
     <div class="text-center my-16 mb-32">
       <h1 class="text-3xl xl:text-6xl font-bold">
         {gallery.data.title}
@@ -70,6 +69,7 @@ const images = gallery.data.images;
                           (max-width: 768px) 50vw,
                           (max-width: 1024px) 33vw,
                           25vw"
+                  style={{ aspectRatio: `${img.file.width} / ${img.file.height}` }}
                   class="w-full h-auto object-cover rounded-md group-hover:scale-105 transition-transform duration-500 ease-out block"
                   loading={index === 0 ? "eager" : "lazy"}
                   fetchpriority={index === 0 ? "high" : "auto"}
@@ -88,4 +88,3 @@ const images = gallery.data.images;
     </div>
     <Lightbox />
   </BaseLayout>
-</html>

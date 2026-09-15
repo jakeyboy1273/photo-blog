@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  href: string;
+  image: ImageMetadata;
+  title: string;
+  description?: string;
+  isFirst?: boolean;
+}
+
+const { href, image, title, description, isFirst = false } = Astro.props;
+---
+
+<a href={href} class="group transition-all mb-4 block">
+  <Image
+    src={image}
+    alt={title}
+    layout="constrained"
+    quality={70}
+    widths={[400, 750, 1080]}
+    sizes="(max-width: 640px) 100vw, 50vw"
+    loading={isFirst ? "eager" : "lazy"}
+    fetchpriority={isFirst ? "high" : "auto"}
+    class:list={["rounded-lg transition-all", "group-hover:shadow-lg group-hover:opacity-90"]}
+  />
+  <div class="mt-4 text-center text-neutral-700">
+    <h2 class="text-base font-medium text-neutral-900">{title}</h2>
+    {description && <p class="text-xs text-neutral-500 mt-1">{description}</p>}
+  </div>
+</a>

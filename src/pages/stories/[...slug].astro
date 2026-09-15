@@ -3,11 +3,12 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Story from '../../layouts/Story.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import Figure from '../../components/Figure.astro';
+import { getCleanSlug } from '../../utils/slug';
 
 export async function getStaticPaths() {
     const posts = await getCollection('stories');
     return posts.map((post: CollectionEntry<'story'>) => {
-        const slug = post.id.replace(/\/index$/, '').replace(/\.(md|mdx)$/, '');
+        const slug = getCleanSlug(post.id);
         
         return {
             params: { slug: slug }, 
