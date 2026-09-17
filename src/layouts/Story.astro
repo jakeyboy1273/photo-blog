@@ -11,37 +11,40 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <BaseLayout title={title} description={description}>
   <main>
     <article>
-      <div class="hero-image mx-auto w-full max-w-6xl px-4 pt-6">
-        {
-          heroImage && (
-            <Image
-              src={heroImage}
-              alt=""
-              widths={[720, 1280, 1920, 2560]}
-              quality={75}
-              sizes="(max-width: 1152px) calc(100vw - 2rem), 1152px"
-              loading="eager"
-              fetchpriority="high"
-              class="mx-auto block h-auto w-full rounded-xl"
-            />
-          )
-        }
-      </div>
-      <div class="prose mx-auto w-full max-w-4xl px-4 py-8 text-ink">
-        <div class="mb-8 py-4 text-center leading-none">
-          <div class="mb-2 text-muted">
-            <FormattedDate date={pubDate} />
-            {
-              updatedDate && (
-                <div class="italic">
-                  Last updated on <FormattedDate date={updatedDate} />
-                </div>
-              )
-            }
-          </div>
-          <h1 class="mb-4 text-3xl sm:text-4xl">{title}</h1>
-          <hr />
+      <header class="mx-auto w-full max-w-4xl px-4 pt-10 pb-6 text-center">
+        <div class="mb-3 text-sm text-muted">
+          <FormattedDate date={pubDate} />
+          {
+            updatedDate && (
+              <div class="mt-1 italic">
+                Last updated on <FormattedDate date={updatedDate} />
+              </div>
+            )
+          }
         </div>
+        <h1 class="mb-0 text-3xl tracking-tight sm:text-4xl">{title}</h1>
+      </header>
+
+      {
+        heroImage && (
+          <div class="mx-auto w-full max-w-4xl px-4">
+            <div class="aspect-[2/1] overflow-hidden rounded-xl sm:aspect-[21/9]">
+              <Image
+                src={heroImage}
+                alt=""
+                widths={[720, 1280, 1920]}
+                quality={75}
+                sizes="(max-width: 896px) calc(100vw - 2rem), 896px"
+                loading="eager"
+                fetchpriority="high"
+                class="h-full w-full object-cover object-center"
+              />
+            </div>
+          </div>
+        )
+      }
+
+      <div class="prose mx-auto w-full max-w-4xl px-4 py-8 text-ink">
         <slot />
       </div>
     </article>
