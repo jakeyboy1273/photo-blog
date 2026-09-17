@@ -6,16 +6,20 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import { getCleanSlug } from "../../utils/slug";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const galleries: CollectionEntry<"galleries">[] =
-  await getCollection("galleries");
+type Gallery = CollectionEntry<"galleries">;
+
+const galleries = (await getCollection("galleries")).sort(
+  (a: Gallery, b: Gallery) =>
+    (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0),
+);
 ---
 
 <BaseLayout title={`Galleries | ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
   <main class="mx-auto max-w-5xl px-4 py-12">
     <h1 class="mb-10 text-center text-4xl font-bold">Galleries</h1>
-    <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
       {
-        galleries.map((item, index) => {
+        galleries.map((item: Gallery, index: number) => {
           const cleanId = getCleanSlug(item.id);
 
           return (
@@ -24,6 +28,8 @@ const galleries: CollectionEntry<"galleries">[] =
               image={item.data.cover}
               title={item.data.title}
               description={item.data.description}
+              date={item.data.date}
+              kind="Gallery"
               isFirst={index === 0}
             />
           );

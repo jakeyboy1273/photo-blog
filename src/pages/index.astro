@@ -1,27 +1,52 @@
 ---
-import type { ImageMetadata } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Card from "../components/Card.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { getCleanSlug } from "../utils/slug";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-const images = import.meta.glob<{ default: ImageMetadata }>([
-  "/src/images/**/*.{jpeg,jpg,png,gif,webp}",
-]);
+type Story = CollectionEntry<"stories">;
+type Gallery = CollectionEntry<"galleries">;
 
-const photos = [
-  {
-    src: "/src/images/2025-12-sri-lanka/elephant-truck_pb_c.jpg",
-    alt: "Elephant and Truck",
-    caption: "Elephant & Truck",
-  },
-  {
-    src: "/src/images/2025-07-alps/grindelwald_panorama.jpg",
-    alt: "Grindelwald Panorama",
-    caption: "Grindelwald Panorama",
-  },
-];
+type FeedItem = {
+  href: string;
+  image: NonNullable<Story["data"]["heroImage"]> | Gallery["data"]["cover"];
+  title: string;
+  description: string;
+  date: Date;
+  kind: "Story" | "Gallery";
+};
+
+const stories = await getCollection("stories");
+const galleries = await getCollection("galleries");
+
+const storyItems: FeedItem[] = stories
+  .filter((post: Story) => post.data.heroImage)
+  .map((post: Story) => ({
+    href: `${base}/stories/${getCleanSlug(post.id)}/`,
+    image: post.data.heroImage!,
+    title: post.data.title,
+    description: post.data.description,
+    date: post.data.pubDate,
+    kind: "Story",
+  }));
+
+const galleryItems: FeedItem[] = galleries
+  .filter((item: Gallery) => item.data.date)
+  .map((item: Gallery) => ({
+    href: `${base}/galleries/${getCleanSlug(item.id)}/`,
+    image: item.data.cover,
+    title: item.data.title,
+    description: item.data.description,
+    date: item.data.date!,
+    kind: "Gallery",
+  }));
+
+const items = [...storyItems, ...galleryItems].sort(
+  (a, b) => b.date.valueOf() - a.date.valueOf(),
+);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -31,28 +56,19 @@ const photos = [
       This website is a work in progress. So far I am hoping to add some of my
       favourite photos and stories from my travels.
     </p>
-    <p>
-      Here is an <a href={`${base}/stories/2025-12-sri-lanka/`}>Elephant</a> 🐘
-      to keep you company while you wait!
-    </p>
-    <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
+    <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
       {
-        photos.map((photo, index) => {
-          if (!images[photo.src]) {
-            throw new Error(
-              `"${photo.src}" does not exist in glob: "src/images/**"`,
-            );
-          }
-          return (
-            <Card
-              image={images[photo.src]()}
-              title={photo.caption}
-              alt={photo.alt}
-              loading={index < 3 ? "eager" : "lazy"}
-              fetchpriority={index < 3 ? "high" : "auto"}
-            />
-          );
-        })
+        items.map((item, index) => (
+          <Card
+            href={item.href}
+            image={item.image}
+            title={item.title}
+            description={item.description}
+            date={item.date}
+            kind={item.kind}
+            isFirst={index === 0}
+          />
+        ))
       }
     </div>
   </main>
