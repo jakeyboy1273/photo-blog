@@ -3,12 +3,21 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import rehypeExternalLinks from "rehype-external-links";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://jakeyboy1273.github.io",
   base: "/photo-blog",
   integrations: [mdx(), react(), sitemap()],
+  markdown: {
+    rehypePlugins: [
+      [
+        rehypeExternalLinks,
+        { target: "_blank", rel: ["noopener", "noreferrer"] },
+      ],
+    ],
+  },
   build: {
     inlineStylesheets: "always",
   },

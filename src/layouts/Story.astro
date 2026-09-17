@@ -1,11 +1,24 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import BackLink from "../components/BackLink.astro";
 
 type Props = CollectionEntry<"stories">["data"];
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroCaption } =
+  Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const heroLightbox = heroImage
+  ? await getImage({
+      src: heroImage,
+      width: Math.min(heroImage.width, 2560),
+      format: "webp",
+      quality: 80,
+    })
+  : null;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -26,19 +39,34 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       </header>
 
       {
-        heroImage && (
-          <div class="mx-auto w-full max-w-4xl px-4">
+        heroImage && heroLightbox && (
+          <div class="hero-image mx-auto w-full max-w-4xl px-4">
             <div class="aspect-[2/1] overflow-hidden rounded-xl sm:aspect-[21/9]">
-              <Image
-                src={heroImage}
-                alt=""
-                widths={[720, 1280, 1920]}
-                quality={75}
-                sizes="(max-width: 896px) calc(100vw - 2rem), 896px"
-                loading="eager"
-                fetchpriority="high"
-                class="h-full w-full object-cover object-center"
-              />
+              <a
+                href={heroLightbox.src}
+                data-pswp-width={heroImage.width}
+                data-pswp-height={heroImage.height}
+                data-pswp-caption={heroCaption ?? ""}
+                target="_blank"
+                rel="noreferrer"
+                class="block h-full w-full"
+                aria-label={
+                  heroCaption
+                    ? `View full-size: ${heroCaption}`
+                    : `View full-size image for ${title}`
+                }
+              >
+                <Image
+                  src={heroImage}
+                  alt=""
+                  widths={[720, 1280, 1920]}
+                  quality={75}
+                  sizes="(max-width: 896px) calc(100vw - 2rem), 896px"
+                  loading="eager"
+                  fetchpriority="high"
+                  class="h-full w-full object-cover object-center"
+                />
+              </a>
             </div>
           </div>
         )
@@ -48,5 +76,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <slot />
       </div>
     </article>
+
+    <div class="mx-auto w-full max-w-4xl px-4 pb-8">
+      <BackLink href={`${base}/stories/`} />
+    </div>
   </main>
 </BaseLayout>

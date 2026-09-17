@@ -15,9 +15,12 @@ import "photoswipe/style.css";
 
     lightboxInstance = new PhotoSwipeLightbox({
       gallery: "#gallery, .prose, .hero-image",
-      // Only gallery/image targets — not markdown text links inside .prose
-      children: "a[data-pswp-width], img",
+      // Gallery uses <a data-pswp-width> wrappers; stories/hero use bare <img>.
+      // Exclude imgs inside those anchors or each photo is added twice (full + thumb).
+      children: "a[data-pswp-width], img:not(a *)",
       pswpModule: () => import("photoswipe"),
+      // Reserve a strip under the image for the caption
+      padding: { top: 0, bottom: 48, left: 0, right: 0 },
     });
 
     // Extract image dimensions and captions for both gallery anchors and story inline images
@@ -116,26 +119,23 @@ import "photoswipe/style.css";
 <style is:global>
   #gallery a,
   .prose img,
-  .hero-image img {
+  .hero-image a {
     cursor: pointer;
   }
 
   .pswp__custom-caption {
     position: absolute;
-    left: 50%;
-    top: 20px;
-    transform: translateX(-50%);
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(8px);
-    color: #f8fafc;
-    padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    max-width: 85%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #e8e8e8;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
     text-align: center;
+    padding: 0.75rem 1.25rem;
     pointer-events: none;
     z-index: 1000;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 </style>

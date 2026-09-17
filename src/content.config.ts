@@ -47,6 +47,7 @@ const stories = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),
+      heroCaption: z.string().optional(),
       gallery: reference("galleries").optional(),
     }),
 });

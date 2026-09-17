@@ -9,6 +9,7 @@ import GalleryAlbum, {
 } from "../../components/GalleryAlbum";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import Lightbox from "../../components/Lightbox.astro";
+import BackLink from "../../components/BackLink.astro";
 import { getCleanSlug } from "../../utils/slug";
 
 export async function getStaticPaths() {
@@ -108,13 +109,7 @@ const photos = await Promise.all(
       <GalleryAlbum photos={photos} />
     </div>
 
-    <p class="mt-10 text-center text-base">
-      <a
-        href={`${base}/galleries/`}
-        class="text-muted no-underline hover:text-ink hover:underline"
-        >← Go back</a
-      >
-    </p>
+    <BackLink href={`${base}/galleries/`} />
   </main>
   <Lightbox />
 </BaseLayout>

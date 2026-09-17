@@ -29,7 +29,6 @@ const galleries = (await getCollection("galleries")).sort(
               title={item.data.title}
               description={item.data.description}
               date={item.data.date}
-              kind="Gallery"
               isFirst={index === 0}
             />
           );
