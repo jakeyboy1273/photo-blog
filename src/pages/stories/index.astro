@@ -5,20 +5,22 @@ import Card from "../../components/Card.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import { getCleanSlug } from "../../utils/slug";
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 type Story = CollectionEntry<"stories">;
 
 const posts = (await getCollection("stories")).sort(
-  (a: Story, b: Story) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a: Story, b: Story) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <BaseLayout title={`Stories | ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
-  <div class="p-8">
-    <h1 class="text-5xl font-bold text-center my-8">Stories</h1>
-    <div class="mx-auto container max-w-(--breakpoint-sm) grid grid-cols-2 gap-8">
+  <main class="mx-auto max-w-5xl px-4 py-12">
+    <h1 class="mb-10 text-center text-4xl font-bold">Stories</h1>
+    <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
       {
         posts.map((post: Story, index: number) => {
+          if (!post.data.heroImage) return null;
+
           const cleanSlug = getCleanSlug(post.id);
 
           return (
@@ -29,9 +31,10 @@ const posts = (await getCollection("stories")).sort(
               description={post.data.description}
               isFirst={index === 0}
             />
+
           );
         })
       }
     </div>
-  </div>
+  </main>
 </BaseLayout>

@@ -1,92 +1,49 @@
 ---
-import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import BaseLayout from './BaseLayout.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import FormattedDate from "../components/FormattedDate.astro";
 
-type Props = CollectionEntry<'story'>['data'];
+type Props = CollectionEntry<"stories">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-				max-width: 1280px;
-				margin: 0 auto;
-				padding: 0 1rem;
-			}
-			.hero-image img {
-				display: block;
-				width: 100%;
-				height: auto;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 960px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && (
-						<Image
-							src={heroImage}
-							alt=""
-							widths={[720, 1280, 1920, 2560]}
-							quality={75}
-							sizes="(max-width: 1280px) 100vw, 1280px"
-							loading="eager"
-							fetchpriority="high"
-							class="w-full h-auto rounded-xl"
-						/>
-					)
-				}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-	</BaseLayout>
+  <main>
+    <article>
+      <div class="hero-image mx-auto w-full max-w-6xl px-4 pt-6">
+        {
+          heroImage && (
+            <Image
+              src={heroImage}
+              alt=""
+              widths={[720, 1280, 1920, 2560]}
+              quality={75}
+              sizes="(max-width: 1152px) calc(100vw - 2rem), 1152px"
+              loading="eager"
+              fetchpriority="high"
+              class="mx-auto block h-auto w-full rounded-xl"
+            />
+          )
+        }
+      </div>
+      <div class="prose mx-auto w-full max-w-4xl px-4 py-8 text-ink">
+        <div class="mb-8 py-4 text-center leading-none">
+          <div class="mb-2 text-muted">
+            <FormattedDate date={pubDate} />
+            {
+              updatedDate && (
+                <div class="italic">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </div>
+              )
+            }
+          </div>
+          <h1 class="mb-4 text-3xl sm:text-4xl">{title}</h1>
+          <hr />
+        </div>
+        <slot />
+      </div>
+    </article>
+  </main>
+</BaseLayout>

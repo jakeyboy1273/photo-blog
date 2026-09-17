@@ -14,8 +14,9 @@ import "photoswipe/style.css";
     }
 
     lightboxInstance = new PhotoSwipeLightbox({
-      gallery: "#gallery, .prose, .hero-image", 
-      children: "a, img",
+      gallery: "#gallery, .prose, .hero-image",
+      // Only gallery/image targets — not markdown text links inside .prose
+      children: "a[data-pswp-width], img",
       pswpModule: () => import("photoswipe"),
     });
 

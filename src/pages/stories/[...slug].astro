@@ -1,28 +1,29 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import Story from '../../layouts/Story.astro';
-import Lightbox from '../../components/Lightbox.astro';
-import Figure from '../../components/Figure.astro';
-import { getCleanSlug } from '../../utils/slug';
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import Story from "../../layouts/Story.astro";
+import Lightbox from "../../components/Lightbox.astro";
+import Figure from "../../components/Figure.astro";
+import { getCleanSlug } from "../../utils/slug";
 
 export async function getStaticPaths() {
-    const posts = await getCollection('stories');
-    return posts.map((post: CollectionEntry<'story'>) => {
-        const slug = getCleanSlug(post.id);
-        
-        return {
-            params: { slug: slug }, 
-            props: post,
-        };
-    });
+  const posts = await getCollection("stories");
+  return posts.map((post: CollectionEntry<"stories">) => {
+    const slug = getCleanSlug(post.id);
+
+    return {
+      params: { slug },
+      props: post,
+    };
+  });
 }
-type Props = CollectionEntry<'story'>;
+
+type Props = CollectionEntry<"stories">;
 
 const post = Astro.props;
 const { Content } = await render(post);
 ---
 
 <Story {...post.data}>
-	<Content components={{ Figure }} />
-	<Lightbox />
+  <Content components={{ Figure }} />
+  <Lightbox />
 </Story>

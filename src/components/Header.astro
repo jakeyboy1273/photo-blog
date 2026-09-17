@@ -1,56 +1,26 @@
 ---
-import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
-import GitHubLink from './GitHubLink.astro';
-const base = import.meta.env.BASE_URL;
+import { SITE_TITLE } from "../consts";
+import HeaderLink from "./HeaderLink.astro";
+import GitHubLink from "./GitHubLink.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<header>
-	<nav>
-		<p class="site-title"><a href={base + "/"}>{SITE_TITLE}</a></p>
-		<div class="internal-links">
-            <HeaderLink href={`${base}/stories`}>Stories</HeaderLink>
-            <HeaderLink href={`${base}/galleries`}>Galleries</HeaderLink>
-        </div>
-		<div class="github-link">
-			<GitHubLink />
-		</div>
-	</nav>
+<header class="border-b border-line bg-surface">
+  <nav
+    class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3"
+  >
+    <p class="m-0 text-lg font-bold tracking-tight">
+      <a href={`${base}/`} class="text-ink no-underline hover:text-ink"
+        >{SITE_TITLE}</a
+      >
+    </p>
+    <div class="flex items-center gap-1 sm:gap-2">
+      <HeaderLink href={`${base}/stories/`}>Stories</HeaderLink>
+      <HeaderLink href={`${base}/galleries/`}>Galleries</HeaderLink>
+      <div class="ml-1 hidden sm:block">
+        <GitHubLink />
+      </div>
+    </div>
+  </nav>
 </header>
-<style is:inline>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	.site-title {
-		margin: 0;
-		font-size: 1em;
-	}
-
-	.site-title a,
-	.site-title a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-    @media (max-width: 720px) {
-        .github-link {
-            display: none;
-        }
-    }
-</style>

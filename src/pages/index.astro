@@ -1,57 +1,59 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PhotoCard from '../components/PhotoCard.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-const base = import.meta.env.BASE_URL;
+import type { ImageMetadata } from "astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const images = import.meta.glob<{ default: ImageMetadata }>([
-    '/src/images/**/*.{jpeg,jpg,png,gif,webp}',
+  "/src/images/**/*.{jpeg,jpg,png,gif,webp}",
 ]);
 
 const photos = [
-    {
-        src: "/src/images/2025-12-sri-lanka/elephant-truck_pb_c.jpg",
-        alt: "Elephant and Truck",
-        caption: "Elephant & Truck"
-    },
-    {
-        src: "/src/images/2025-07-alps/grindelwald_panorama.jpg",
-        alt: "Grindelwald Panorama",
-        caption: "Grindelwald Panorama"
-    }
+  {
+    src: "/src/images/2025-12-sri-lanka/elephant-truck_pb_c.jpg",
+    alt: "Elephant and Truck",
+    caption: "Elephant & Truck",
+  },
+  {
+    src: "/src/images/2025-07-alps/grindelwald_panorama.jpg",
+    alt: "Grindelwald Panorama",
+    caption: "Grindelwald Panorama",
+  },
 ];
 ---
 
-<!doctype html>
-<html lang="en">
-    <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-        <main>
-            <h1 class="text-4xl font-bold">
-                My Photography Blog!
-            </h1>
-            <p>
-                This website is a work in progress. So far I am hoping to add some of my favourite photos and stories from my travels.
-            </p>
-            <p>
-                Here is an <a href={`${base}/stories/2025-12-sri-lanka/`}>Elephant</a> 🐘 to keep you company while you wait!
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {photos.map((photo, index) => {
-                    if (!images[photo.src]) {
-                        throw new Error(`"${photo.src}" does not exist in glob: "src/content/stories/**" or "src/assets/**"`);
-                    }
-                    return (
-                        <PhotoCard 
-                            imagePath={images[photo.src]()}
-                            alt={photo.alt} 
-                            caption={photo.caption}
-                            /* If it's one of the first 3 images, load it immediately */
-                            loading={index < 3 ? "eager" : "lazy"}
-                            fetchpriority={index < 3 ? "high" : "auto"}
-                        />
-                    );
-                })}
-            </div>
-        </main>
-    </BaseLayout>
-</html>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main class="mx-auto max-w-5xl px-4 py-12">
+    <h1 class="text-4xl font-bold">My Photography Blog!</h1>
+    <p>
+      This website is a work in progress. So far I am hoping to add some of my
+      favourite photos and stories from my travels.
+    </p>
+    <p>
+      Here is an <a href={`${base}/stories/2025-12-sri-lanka/`}>Elephant</a> 🐘
+      to keep you company while you wait!
+    </p>
+    <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
+      {
+        photos.map((photo, index) => {
+          if (!images[photo.src]) {
+            throw new Error(
+              `"${photo.src}" does not exist in glob: "src/images/**"`,
+            );
+          }
+          return (
+            <Card
+              image={images[photo.src]()}
+              title={photo.caption}
+              alt={photo.alt}
+              loading={index < 3 ? "eager" : "lazy"}
+              fetchpriority={index < 3 ? "high" : "auto"}
+            />
+          );
+        })
+      }
+    </div>
+  </main>
+</BaseLayout>
