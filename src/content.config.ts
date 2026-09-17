@@ -31,18 +31,7 @@ const stories = defineCollection({
   loader: glob({
     base: "./src/content/stories",
     pattern: "**/*.{md,mdx}",
-    generateId: ({
-      entry,
-      data,
-    }: {
-      entry: string;
-      data: Record<string, unknown>;
-    }): string => {
-      // Check if data.slug exists and is a string
-      if (typeof data.slug === "string") {
-        return data.slug;
-      }
-
+    generateId: ({ entry }: { entry: string }): string => {
       // Convert path to URL-friendly id: "story/index.mdx" -> "story"
       return entry
         .replace(/\.(md|mdx)$/, "")
@@ -55,7 +44,6 @@ const stories = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      slug: z.string().optional(), // Override generated id for nested folder posts
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),

@@ -21,11 +21,11 @@ const posts = (await getCollection("stories")).sort(
         posts.map((post: Story, index: number) => {
           if (!post.data.heroImage) return null;
 
-          const cleanSlug = getCleanSlug(post.id);
+          const cleanId = getCleanSlug(post.id);
 
           return (
             <Card
-              href={`${base}/stories/${cleanSlug}/`}
+              href={`${base}/stories/${cleanId}/`}
               image={post.data.heroImage}
               title={post.data.title}
               description={post.data.description}

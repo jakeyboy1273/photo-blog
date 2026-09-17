@@ -8,10 +8,10 @@ import { getCleanSlug } from "../../utils/slug";
 export async function getStaticPaths() {
   const posts = await getCollection("stories");
   return posts.map((post: CollectionEntry<"stories">) => {
-    const slug = getCleanSlug(post.id);
+    const cleanId = getCleanSlug(post.id);
 
     return {
-      params: { slug },
+      params: { id: cleanId },
       props: post,
     };
   });
