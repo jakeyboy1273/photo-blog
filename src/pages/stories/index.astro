@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 type Story = CollectionEntry<"stories">;
 
 const posts = (await getCollection("stories")).sort(
-  (a: Story, b: Story) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a: Story, b: Story) => b.data.tripDate.valueOf() - a.data.tripDate.valueOf(),
 );
 ---
 
@@ -29,7 +29,7 @@ const posts = (await getCollection("stories")).sort(
               image={post.data.heroImage}
               title={post.data.title}
               description={post.data.description}
-              date={post.data.pubDate}
+              date={post.data.tripDate}
               isFirst={index === 0}
             />
           );

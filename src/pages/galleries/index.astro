@@ -10,7 +10,7 @@ type Gallery = CollectionEntry<"galleries">;
 
 const galleries = (await getCollection("galleries")).sort(
   (a: Gallery, b: Gallery) =>
-    (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0),
+    b.data.tripDate.valueOf() - a.data.tripDate.valueOf(),
 );
 ---
 
@@ -28,7 +28,7 @@ const galleries = (await getCollection("galleries")).sort(
               image={item.data.cover}
               title={item.data.title}
               description={item.data.description}
-              date={item.data.date}
+              date={item.data.tripDate}
               isFirst={index === 0}
             />
           );

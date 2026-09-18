@@ -15,7 +15,8 @@ type FeedItem = {
   image: NonNullable<Story["data"]["heroImage"]> | Gallery["data"]["cover"];
   title: string;
   description: string;
-  date: Date;
+  tripDate: Date;
+  pubDate: Date;
   kind: "Story" | "Gallery";
 };
 
@@ -29,23 +30,23 @@ const storyItems: FeedItem[] = stories
     image: post.data.heroImage!,
     title: post.data.title,
     description: post.data.description,
-    date: post.data.pubDate,
+    tripDate: post.data.tripDate,
+    pubDate: post.data.pubDate,
     kind: "Story",
   }));
 
-const galleryItems: FeedItem[] = galleries
-  .filter((item: Gallery) => item.data.date)
-  .map((item: Gallery) => ({
-    href: `${base}/galleries/${getCleanSlug(item.id)}/`,
-    image: item.data.cover,
-    title: item.data.title,
-    description: item.data.description,
-    date: item.data.date!,
-    kind: "Gallery",
-  }));
+const galleryItems: FeedItem[] = galleries.map((item: Gallery) => ({
+  href: `${base}/galleries/${getCleanSlug(item.id)}/`,
+  image: item.data.cover,
+  title: item.data.title,
+  description: item.data.description,
+  tripDate: item.data.tripDate,
+  pubDate: item.data.pubDate,
+  kind: "Gallery",
+}));
 
 const items = [...storyItems, ...galleryItems].sort(
-  (a, b) => b.date.valueOf() - a.date.valueOf(),
+  (a, b) => b.pubDate.valueOf() - a.pubDate.valueOf(),
 );
 ---
 
@@ -64,7 +65,7 @@ const items = [...storyItems, ...galleryItems].sort(
             image={item.image}
             title={item.title}
             description={item.description}
-            date={item.date}
+            date={item.tripDate}
             kind={item.kind}
             isFirst={index === 0}
           />

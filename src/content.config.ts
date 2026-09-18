@@ -11,7 +11,8 @@ const galleries = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      date: z.coerce.date().optional(),
+      tripDate: z.coerce.date(),
+      pubDate: z.coerce.date(),
       cover: image(),
       images: z
         .array(
@@ -44,6 +45,7 @@ const stories = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
+      tripDate: z.coerce.date(),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),

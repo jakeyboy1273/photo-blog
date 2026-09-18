@@ -96,13 +96,9 @@ const photos = await Promise.all(
           </p>
         )
       }
-      {
-        gallery.data.date && (
-          <p class="mt-3 text-sm text-muted">
-            <FormattedDate date={gallery.data.date} />
-          </p>
-        )
-      }
+      <p class="mt-3 text-sm text-muted">
+        <FormattedDate date={gallery.data.tripDate} />
+      </p>
     </div>
 
     <div class="mt-10">
