@@ -23,7 +23,7 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Story {...post.data}>
+<Story {...post.data} id={post.id}>
   <Content components={{ Figure }} />
   <Lightbox />
 </Story>

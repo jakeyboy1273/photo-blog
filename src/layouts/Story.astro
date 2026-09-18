@@ -1,15 +1,30 @@
 ---
 import { Image, getImage } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import BackLink from "../components/BackLink.astro";
+import TripCrossLink from "../components/TripCrossLink.astro";
+import { getCleanSlug } from "../utils/slug";
 
-type Props = CollectionEntry<"stories">["data"];
-const { title, description, tripDate, updatedDate, heroImage, heroCaption } =
-  Astro.props;
+type Props = CollectionEntry<"stories">["data"] & { id: string };
+const {
+  id,
+  title,
+  description,
+  tripDate,
+  updatedDate,
+  heroImage,
+  heroCaption,
+} = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Link to a gallery with the same content id, if one exists.
+const relatedGallery = await getEntry("galleries", id);
+const relatedGalleryHref = relatedGallery
+  ? `${base}/galleries/${getCleanSlug(relatedGallery.id)}/`
+  : undefined;
 
 const heroLightbox = heroImage
   ? await getImage({
@@ -22,25 +37,38 @@ const heroLightbox = heroImage
 ---
 
 <BaseLayout title={title} description={description}>
-  <main>
+  <main class="px-4 py-12">
     <article>
-      <header class="mx-auto w-full max-w-4xl px-4 pt-10 pb-6 text-center">
-        <div class="mb-3 text-sm text-muted">
+      <header class="mx-auto max-w-3xl text-center">
+        <h1 class="text-3xl font-bold sm:text-4xl lg:text-5xl">{title}</h1>
+        {
+          description && (
+            <p class="mt-4 text-base text-muted sm:text-lg">{description}</p>
+          )
+        }
+        <p class="mt-3 text-sm text-muted">
           <FormattedDate date={tripDate} />
-          {
-            updatedDate && (
-              <div class="mt-1 italic">
-                Last updated on <FormattedDate date={updatedDate} />
-              </div>
-            )
-          }
-        </div>
-        <h1 class="mb-0 text-3xl tracking-tight sm:text-4xl">{title}</h1>
+        </p>
+        {
+          updatedDate && (
+            <p class="mt-1 text-sm italic text-muted">
+              Last updated on <FormattedDate date={updatedDate} />
+            </p>
+          )
+        }
+        {
+          relatedGalleryHref && (
+            <TripCrossLink
+              href={relatedGalleryHref}
+              label="View the photo gallery →"
+            />
+          )
+        }
       </header>
 
       {
         heroImage && heroLightbox && (
-          <div class="hero-image mx-auto w-full max-w-4xl px-4">
+          <div class="hero-image mx-auto w-full max-w-4xl">
             <div class="aspect-[2/1] overflow-hidden rounded-xl sm:aspect-[21/9]">
               <a
                 href={heroLightbox.src}
@@ -72,12 +100,12 @@ const heroLightbox = heroImage
         )
       }
 
-      <div class="prose mx-auto w-full max-w-4xl px-4 py-8 text-ink">
+      <div class="prose mx-auto w-full max-w-4xl py-8 text-ink">
         <slot />
       </div>
     </article>
 
-    <div class="mx-auto w-full max-w-4xl px-4 pb-8">
+    <div class="mx-auto w-full max-w-4xl">
       <BackLink href={`${base}/stories/`} />
     </div>
   </main>

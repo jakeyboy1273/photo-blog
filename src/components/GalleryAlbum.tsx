@@ -22,9 +22,8 @@ export default function GalleryAlbum({ photos }: Props) {
       breakpoints={[480, 768, 1024]}
       spacing={12}
       columns={(width) => {
-        if (width < 480) return 2;
-        if (width < 768) return 3;
-        return 4;
+        if (width < 768) return 2;
+        return 3;
       }}
       sizes={{
         size: "min(100vw - 2rem, 80rem)",
