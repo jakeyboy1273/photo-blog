@@ -1,8 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Card from "../../components/Card.astro";
+import PageIntro from "../../components/PageIntro.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import {
+  GALLERIES_DESCRIPTION,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+} from "../../consts";
 import { getCleanSlug } from "../../utils/slug";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -16,8 +21,8 @@ const galleries = (await getCollection("galleries")).sort(
 
 <BaseLayout title={`Galleries | ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
   <main class="mx-auto max-w-5xl px-4 py-12">
-    <h1 class="mb-10 text-center text-4xl font-bold">Galleries</h1>
-    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
+    <PageIntro title="Galleries" description={GALLERIES_DESCRIPTION} />
+    <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
       {
         galleries.map((item: Gallery, index: number) => {
           const cleanId = getCleanSlug(item.id);
