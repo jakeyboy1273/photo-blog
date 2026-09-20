@@ -1,26 +1,16 @@
 ---
-import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
-import GalleryAlbum, {
-  type GalleryPhoto,
-} from "../../components/GalleryAlbum";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
-import Lightbox from "../../components/Lightbox.astro";
-import BackLink from "../../components/BackLink.astro";
-import TripCrossLink from "../../components/TripCrossLink.astro";
-import { getCleanSlug } from "../../utils/slug";
+import Gallery from "../../layouts/Gallery.astro";
+import type { GalleryPhoto } from "../../components/GalleryAlbum";
 
 export async function getStaticPaths() {
   const galleries = await getCollection("galleries");
 
   return galleries.map((gallery: CollectionEntry<"galleries">) => {
-    const cleanId = getCleanSlug(gallery.id);
-
     return {
-      params: { id: cleanId },
+      params: { id: gallery.id },
       props: { gallery },
     };
   });
@@ -73,51 +63,11 @@ async function toGalleryPhoto(
 }
 
 const { gallery } = Astro.props as Props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const photos = await Promise.all(
   gallery.data.images.map((img: { file: ImageMetadata; caption?: string }) =>
     toGalleryPhoto(img, gallery.data.title),
   ),
 );
-
-// Link to a story with the same content id, if one exists.
-const relatedStory = await getEntry("stories", gallery.id);
-const relatedStoryHref = relatedStory
-  ? `${base}/stories/${getCleanSlug(relatedStory.id)}/`
-  : undefined;
 ---
 
-<BaseLayout
-  title={`${gallery.data.title} | ${SITE_TITLE}`}
-  description={gallery.data.description || SITE_DESCRIPTION}
->
-  <main class="px-4 py-12">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1 class="text-3xl font-bold sm:text-4xl lg:text-5xl">
-        {gallery.data.title}
-      </h1>
-      {
-        gallery.data.description && (
-          <p class="mt-4 text-base text-muted sm:text-lg">
-            {gallery.data.description}
-          </p>
-        )
-      }
-      <p class="mt-3 text-sm text-muted">
-        <FormattedDate date={gallery.data.tripDate} />
-      </p>
-      {
-        relatedStoryHref && (
-          <TripCrossLink href={relatedStoryHref} label="Read the story →" />
-        )
-      }
-    </div>
-
-    <div class="mt-10">
-      <GalleryAlbum photos={photos} />
-    </div>
-
-    <BackLink href={`${base}/galleries/`} />
-  </main>
-  <Lightbox />
-</BaseLayout>
+<Gallery {...gallery.data} id={gallery.id} photos={photos} />

@@ -2,10 +2,14 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
+const cleanId = ({ entry }: { entry: string }): string =>
+  entry.replace(/\.[^/.]+$/, "").replace(/\/index$/, "");
+
 const galleries = defineCollection({
   loader: glob({
     pattern: "**/*.{yaml,yml,json}",
     base: "./src/content/galleries",
+    generateId: cleanId,
   }),
   schema: ({ image }) =>
     z.object({
@@ -31,13 +35,7 @@ const stories = defineCollection({
   loader: glob({
     base: "./src/content/stories",
     pattern: "**/*.{md,mdx}",
-    generateId: ({ entry }: { entry: string }): string => {
-      // Convert path to URL-friendly id: "story/index.mdx" -> "story"
-      return entry
-        .replace(/\.(md|mdx)$/, "")
-        .replace(/\/index$/, "")
-        .replace(/^index$/, "index");
-    },
+    generateId: cleanId,
   }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>

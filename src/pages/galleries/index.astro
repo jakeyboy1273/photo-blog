@@ -8,7 +8,6 @@ import {
   SITE_DESCRIPTION,
   SITE_TITLE,
 } from "../../consts";
-import { getCleanSlug } from "../../utils/slug";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 type Gallery = CollectionEntry<"galleries">;
@@ -25,11 +24,9 @@ const galleries = (await getCollection("galleries")).sort(
     <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
       {
         galleries.map((item: Gallery, index: number) => {
-          const cleanId = getCleanSlug(item.id);
-
           return (
             <Card
-              href={`${base}/galleries/${cleanId}/`}
+              href={`${base}/galleries/${item.id}/`}
               image={item.data.cover}
               title={item.data.title}
               description={item.data.description}

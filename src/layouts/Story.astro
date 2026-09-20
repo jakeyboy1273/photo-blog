@@ -5,7 +5,6 @@ import BaseLayout from "./BaseLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import BackLink from "../components/BackLink.astro";
 import TripCrossLink from "../components/TripCrossLink.astro";
-import { getCleanSlug } from "../utils/slug";
 
 type Props = CollectionEntry<"stories">["data"] & { id: string };
 const {
@@ -23,7 +22,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 // Link to a gallery with the same content id, if one exists.
 const relatedGallery = await getEntry("galleries", id);
 const relatedGalleryHref = relatedGallery
-  ? `${base}/galleries/${getCleanSlug(relatedGallery.id)}/`
+  ? `${base}/galleries/${relatedGallery.id}/`
   : undefined;
 
 const heroLightbox = heroImage

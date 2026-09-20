@@ -3,15 +3,11 @@ import { type CollectionEntry, getCollection, render } from "astro:content";
 import Story from "../../layouts/Story.astro";
 import Lightbox from "../../components/Lightbox.astro";
 import Figure from "../../components/Figure.astro";
-import { getCleanSlug } from "../../utils/slug";
-
 export async function getStaticPaths() {
   const posts = await getCollection("stories");
   return posts.map((post: CollectionEntry<"stories">) => {
-    const cleanId = getCleanSlug(post.id);
-
     return {
-      params: { id: cleanId },
+      params: { id: post.id },
       props: post,
     };
   });

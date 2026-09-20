@@ -14,10 +14,29 @@ Inside of the Astro project, there are the following folders and files:
 ```text
 ├── public/
 ├── src/
-│   ├── components/
+
 │   ├── content/
+│   │   ├── galleries/
+│   │   │   ├── gallery-1.yaml
+│   │   │   └── gallery-2.yaml
+│   │   └── stories/
+│   │   │   ├── story-1.yaml
+│   │   │   └── story-2.yaml
+│   ├── images/
+│   │   ├── trip-1/
+│   │   └── trip-2/
 │   ├── layouts/
-│   └── pages/
+│   ├── pages/
+│   │   ├── galleries/
+│   │   │   ├── [id].astro
+│   │   │   └── index.astro
+│   │   └── stories/
+│   │   │   ├── [id].astro
+│   │   │   └── index.astro
+│   ├── styles/
+│   │   └── global.css
+│   ├── consts.ts
+│   └── content.config.ts
 ├── astro.config.mjs
 ├── README.md
 ├── package.json
@@ -34,6 +53,10 @@ Implemented collections:
 
 - stories (.MDX blog posts)
 - galleries (indexed directories containing photos)
+
+The `src/pages/` directory contains the `.astro` files for each page. The homepage of the site is `index.astro` and then both the `galleries/` and `stories/` subfolders contain an `index.astro` page for their homepages, and an `[id].astro` page for each entry.
+
+The `src/images/` directory contains subfolders for each trip; these assets are shared by both the stories and galleries.
 
 Any static assets are placed in the `public/` directory.
 
@@ -66,6 +89,7 @@ This project uses Husky to orchestrate pre-commit commands. Husky automatically 
 ### 🔄 Updating Dependencies
 
 Update the Node packages with `npm update` and `npm audit fix`
+
 Astro itself can be upgraded with `npx @astrojs/upgrade`
 
 ### ✏️ Credit

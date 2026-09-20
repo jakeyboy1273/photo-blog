@@ -4,7 +4,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Card from "../components/Card.astro";
 import PageIntro from "../components/PageIntro.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-import { getCleanSlug } from "../utils/slug";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -27,20 +26,18 @@ const galleries = await getCollection("galleries");
 const storyItems: FeedItem[] = stories
   .filter((post: Story) => post.data.heroImage)
   .map((post: Story) => ({
-    href: `${base}/stories/${getCleanSlug(post.id)}/`,
+    href: `${base}/stories/${post.id}/`,
     image: post.data.heroImage!,
     title: post.data.title,
-    description: post.data.description,
     tripDate: post.data.tripDate,
     pubDate: post.data.pubDate,
     kind: "Story",
   }));
 
 const galleryItems: FeedItem[] = galleries.map((item: Gallery) => ({
-  href: `${base}/galleries/${getCleanSlug(item.id)}/`,
+  href: `${base}/galleries/${item.id}/`,
   image: item.data.cover,
   title: item.data.title,
-  description: item.data.description,
   tripDate: item.data.tripDate,
   pubDate: item.data.pubDate,
   kind: "Gallery",
@@ -58,7 +55,7 @@ const items = [...storyItems, ...galleryItems].sort(
       description="Welcome to my collection of photos and stories from all my adventures around the world!
       I built this website myself to have a nice place to share my pictures and tell my tales."
     />
-    <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
+    <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8">
       {
         items.map((item, index) => (
           <Card
