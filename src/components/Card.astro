@@ -12,6 +12,8 @@ interface Props {
   kind?: "Story" | "Gallery";
   alt?: string;
   href?: string;
+  sizes?: string;
+  widths?: number[];
   loading?: "lazy" | "eager";
   fetchpriority?: "high" | "low" | "auto";
   isFirst?: boolean;
@@ -25,6 +27,8 @@ const {
   kind,
   alt = title,
   href,
+  sizes = "(max-width: 639px) 100vw, 50vw",
+  widths = [400, 600, 900],
   isFirst = false,
   loading = isFirst ? "eager" : "lazy",
   fetchpriority = isFirst ? "high" : "auto",
@@ -40,8 +44,8 @@ const cardClass =
     <Image
       src={image}
       alt={alt}
-      widths={[400, 600, 900]}
-      sizes="(max-width: 639px) 100vw, 50vw"
+      widths={widths}
+      sizes={sizes}
       quality={75}
       format="webp"
       loading={loading}

@@ -66,6 +66,7 @@ const items = [...storyItems, ...galleryItems].sort(
             date={item.tripDate}
             kind={item.kind}
             isFirst={index === 0}
+            sizes="(max-width: 639px) 50vw, (max-width: 1024px) 33vw, 340px"
           />
         ))
       }
