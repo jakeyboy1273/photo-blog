@@ -1,0 +1,54 @@
+title: "Iceland Trip"
+description: "A road trip around the south side of the land of fire and ice."
+tripDate: 2024-10-19
+pubDate: 2026-06-20
+cover: "../../images/2024-10-iceland/bruarfoss-waterfall.jpg"
+
+images:
+  - file: "../../images/2024-10-iceland/thingvellir-boardwalk.jpg"
+    caption: "Board walk around Thingvellir National Park"
+
+  - file: "../../images/2024-10-iceland/thingvellir-church.jpg"
+    caption: "Traditional wooden church in Thingvellir National Park"
+
+  - file: "../../images/2024-10-iceland/geothermal-river.jpg"
+    caption: "Steam rises from the geothermal river in Reykjadalur"
+
+  - file: "../../images/2024-10-iceland/skogafoss-trail.jpg"
+    caption: "One of the many waterfalls flowing from the river Skógá"
+
+  - file: "../../images/2024-10-iceland/skogafoss-sunset.jpg"
+    caption: "The sun sets over a lonely roadside farm"
+
+  - file: "../../images/2024-10-iceland/vik-church.jpg"
+    caption: "Vik Church watches over the Reynisdrangar sea stacks"
+
+  - file: "../../images/2024-10-iceland/glacier-hikers.jpg"
+    caption: "A group of intrepid glacier scalers hike up the Sólheimajökull glacier"
+
+  - file: "../../images/2024-10-iceland/glacier-rainbow.jpg"
+    caption: "A beautiful rainbow forms in the mist on top of the Sólheimajökull glacier"
+
+  - file: "../../images/2024-10-iceland/solheimajokull-glacier.jpg"
+    caption: "Ice climbers look like ants on the mighty Sólheimajökull glacier"
+
+  - file: "../../images/2024-10-iceland/solheimajokull-iceberg.jpg"
+    caption: "A jagged iceberg floats in the lagoon at the base of the Sólheimajökull glacier"
+
+  - file: "../../images/2024-10-iceland/mountain-panorama.jpg"
+    caption: "The sun rises over the mountains of southern Iceland"
+
+  - file: "../../images/2024-10-iceland/dyrholaey-panorama.jpg"
+    caption: "The whole glacier can be seen from the Dyrhólaey cliffs, glowing red in the dawn light"
+
+  - file: "../../images/2024-10-iceland/dyrholaey-mist.jpg"
+    caption: "Mist rises from the waves crashing against Reynisfjara beach"
+
+  - file: "../../images/2024-10-iceland/plane-wreck.jpg"
+    caption: "The Solheimasandur plane wreck sits in the middle of a black sand desert"
+
+  - file: "../../images/2024-10-iceland/bruarfoss-waterfall.jpg"
+    caption: "Bruarfoss Waterfall gushes with magnificent blue glacier water"
+
+  - file: "../../images/2024-10-iceland/seltun-geothermal.jpg"
+    caption: "The sulphuric springs at Seltún geothermal area bubble with geothermal activity"
